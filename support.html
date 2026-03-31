@@ -3,55 +3,79 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Support / 技术支持</title>
+  <title>Support</title>
   <style>
     body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #f8fafc; color: #111827; line-height: 1.65; }
     main { max-width: 900px; margin: 0 auto; padding: 28px 18px 52px; }
     .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; margin-bottom: 14px; }
-    h1 { margin: 0 0 6px; }
-    h2 { margin: 16px 0 8px; }
-    .muted { color: #6b7280; }
-    .lang { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #d1d5db; }
+    .switcher { display: flex; gap: 8px; margin: 10px 0 16px; }
+    .btn { border: 1px solid #cbd5e1; background: #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+    .btn.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+    .hidden { display: none; }
     a { color: #1d4ed8; }
   </style>
 </head>
 <body>
   <main>
-    <h1>Support / 技术支持</h1>
-    <p class="muted">App: Location SMS</p>
+    <h1 id="title">Support</h1>
+    <div class="switcher">
+      <button id="btn-en" class="btn active" type="button">English</button>
+      <button id="btn-zh" class="btn" type="button">中文</button>
+    </div>
 
-    <div class="card">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:51135414@qq.com">51135414@qq.com</a></p>
-      <p>Response time: 2-3 business days.</p>
-      <div class="lang">
+    <section id="content-en">
+      <div class="card">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:51135414@qq.com">51135414@qq.com</a></p>
+        <p>Response time: 2-3 business days.</p>
+      </div>
+      <div class="card">
+        <h2>Common Issues</h2>
+        <p><strong>SMS not sent:</strong> Check carrier SMS availability and recipient number format.</p>
+        <p><strong>Location unavailable:</strong> Enable Location permission in iOS settings and retry.</p>
+      </div>
+      <div class="card">
+        <h2>Links</h2>
+        <p>Privacy Policy: <a href="./privacy-policy.html">privacy-policy.html</a></p>
+      </div>
+    </section>
+
+    <section id="content-zh" class="hidden">
+      <div class="card">
         <h2>联系方式</h2>
         <p>邮箱：<a href="mailto:51135414@qq.com">51135414@qq.com</a></p>
         <p>通常在 2-3 个工作日内回复。</p>
       </div>
-    </div>
-
-    <div class="card">
-      <h2>Common Issues</h2>
-      <p><strong>SMS not sent:</strong> Check carrier SMS availability and recipient number format.</p>
-      <p><strong>Location unavailable:</strong> Enable Location permission in iOS settings and retry.</p>
-      <div class="lang">
+      <div class="card">
         <h2>常见问题</h2>
         <p><strong>短信发送失败：</strong>请检查运营商短信能力和收件人号码格式。</p>
         <p><strong>无法获取位置：</strong>请在 iOS 设置中开启定位权限后重试。</p>
       </div>
-    </div>
-
-    <div class="card">
-      <h2>Bug Report</h2>
-      <p>Please include app version, device model, iOS version, and reproduction steps.</p>
-      <p>Privacy Policy: <a href="./privacy-policy.html">privacy-policy.html</a></p>
-      <div class="lang">
-        <h2>问题反馈</h2>
-        <p>请附上应用版本、设备型号、iOS 版本和复现步骤。</p>
+      <div class="card">
+        <h2>链接</h2>
         <p>隐私政策：<a href="./privacy-policy.html">privacy-policy.html</a></p>
       </div>
-    </div>
+    </section>
   </main>
+
+  <script>
+    const btnEn = document.getElementById('btn-en');
+    const btnZh = document.getElementById('btn-zh');
+    const en = document.getElementById('content-en');
+    const zh = document.getElementById('content-zh');
+    const title = document.getElementById('title');
+
+    function show(lang) {
+      const isEn = lang === 'en';
+      en.classList.toggle('hidden', !isEn);
+      zh.classList.toggle('hidden', isEn);
+      btnEn.classList.toggle('active', isEn);
+      btnZh.classList.toggle('active', !isEn);
+      title.textContent = isEn ? 'Support' : '技术支持';
+    }
+
+    btnEn.addEventListener('click', () => show('en'));
+    btnZh.addEventListener('click', () => show('zh'));
+  </script>
 </body>
 </html>
